@@ -1,0 +1,67 @@
+﻿@model IEnumerable<AD_Project.Models.Store.Item>
+
+@{
+    ViewBag.Title = "Catalogue";
+    Layout = "~/Views/Shared/_EmpLayout.cshtml";
+
+}
+
+
+<h2>Catalogue</h2>
+
+<div class="col-lg-2 col-md-2 col-sm-2">
+
+    @if (Session["rForm"] != null)
+    {
+
+        <a class="btn btn-primary" href="/Employee/ViewRequisitionForm">Requisition Form</a>
+    }
+</div>
+
+<table class="table" id="DataItem">
+    <thead>
+        <br />
+        <br />
+        <br />
+        <tr>
+            <th>ItemNumber</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Unit of Measure</th>
+            <th>Qty</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.ItemNumber</td>
+                <td>@items.ItemCategory</td>
+                <td>@items.ItemDesc</td>
+                <td>@items.UnitOfMeasure</td>
+                <td>
+                    @using (Html.BeginForm("AddToRequisitionForm", "Employee", new { itemId = items.Id }, FormMethod.Post))
+                    {<input type="number" min="1" name="qty" value="0" id="qty" />
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    }
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#DataItem').DataTable()
+        });
+    </script>
+}

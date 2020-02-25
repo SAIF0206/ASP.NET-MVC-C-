@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AD_Project.Models.Departments.Dept_Staff>
+
+@{
+    ViewBag.Title = "Assign";
+    Layout = "~/Views/Shared/_HeadLayout.cshtml";
+}
+<h2>Assign Delegate</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th >Start Time</th>
+            <th >End Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var d in Model)
+        {
+
+            <tr>
+                <td>@d.Username</td>
+
+                <td>
+                    <input type="Date" name="StartDate" class="startDate">
+                   
+                </td>
+                <td><input type="Date" name="EndDate" class="endDate">
+                 
+
+                <td>
+                    <input type="hidden" value="@d.UserId" class="userId" />
+                    <button class="assign btn btn-success">Assign</button>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="~/Head/EditDelegate/" class="btn btn-primary">Edit</a>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $('body').on('click', '.assign', function () {
+        var headDelegate = {};
+        headDelegate.startDate = $(this).parent().siblings('td').find('.startDate').val();
+        headDelegate.endDate = $(this).parent().siblings('td').find('.endDate').val();
+        headDelegate.userId = $(this).parent().find('input:hidden').val();
+        console.log(headDelegate.userId);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Assign", "Head")",
+            data: JSON.stringify(headDelegate),
+            contentType: "application/json; charset = utf-8",
+            dataType: "json",
+            success: function () {
+                console.log("ok");
+                window.location.href = '@Url.Action("AssignDelegate", "Head")';
+            }
+        });
+    });
+</script>

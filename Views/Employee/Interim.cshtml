@@ -1,0 +1,44 @@
+﻿@using AD_Project.Models.Departments
+
+@{
+    ViewBag.Title = "Interim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> Interim</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>SN</th>
+            <th>Requested By</th>
+
+            <th>Remarks</th>
+            <th> Status </th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var form in Model)
+        {
+            <tr>
+                <td>
+                    <a href="~/Head/RequestDetails/@form.EmployeeRequestFormId">
+                        @form.EmployeeRequestFormId
+                    </a>
+                </td>
+                <td>@form.DeptStaff.Username</td>
+
+
+                <td>@Html.ActionLink("Add Remarks", "Remarks")</td>
+                <td>@form.EmployeeRequestFormstatus</td>
+
+                <td>
+                    <a href="~/Head/Approve/@form.EmployeeRequestFormId" class="btn btn-success"> Approve</a>
+                    <a href="~/Head/Reject/@form.EmployeeRequestFormId" class="btn btn-danger"> Reject</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

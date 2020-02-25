@@ -1,0 +1,81 @@
+﻿@model AD_Project.ViewModel.RequisitionFormViewModel
+
+@{
+    ViewBag.Title = "ViewRequisitionForm";
+    Layout = "~/Views/Shared/_RepLayout.cshtml";
+
+}
+
+<h2>ViewRequisitionForm</h2>
+
+@if (Model.RequestItems.Count != 0)
+{
+    <table class="table table-responsive" id="RequisitionData">
+
+        <thead>
+            <tr>
+                <th>ItemNumber</th>
+
+                <th>Description</th>
+
+                <th>Quantity</th>
+                <th> Remove </th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+            @for (var i = 0; i < Model.RequestItems.Count(); i++)
+            {
+
+                <tr>
+                    @Html.HiddenFor(m => m.RequestItems[i].Item.ItemNumber)
+                    @Html.HiddenFor(m => m.RequestItems[i].RequestedQty)
+                    <td>@Model.RequestItems[i].Item.ItemNumber</td>
+                    <td>@Model.RequestItems[i].Item.ItemDesc</td>
+                    <td>@Model.RequestItems[i].RequestedQty</td>
+                    <td><a href="/Item/RemoveItem?itemId=@Model.RequestItems[i].Item.Id" class="btn btn-danger">Remove</a></td>
+                </tr>
+
+            }
+
+
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>@Session["total"]</td>
+
+            </tr>
+        </tfoot>
+
+    </table>
+
+    <h3 style="color:#ff6a00; font-family:'Arial Rounded MT';text-align:center"> <span class="btn btn-info">@Html.ActionLink("Submit Form", "updateRequisitionForm", "Item")</span></h3>
+
+
+}
+
+
+else
+{
+    <h2 style="color:red"> Requisition Form is empty....</h2>
+    <a href="~/Item/Catalogue/" class="btn btn-primary">Go Back</a>
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.noConflict();
+
+            $("#RequisitionData").DataTable({ noConflict: false }
+            );
+        });</script>
+
+
+}

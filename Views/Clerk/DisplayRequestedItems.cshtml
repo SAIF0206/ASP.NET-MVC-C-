@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<AD_Project.Models.Departments.ConsolidatedRequisition>
+@{
+    ViewBag.Title = "displayRequests";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+
+<h2>Requested Items From Department</h2>
+<table class="table">
+    <tr>
+        <th>
+            REQUESTED DATE
+        </th>
+        <th>
+            DEPARTMENT NAME
+        </th>
+    </tr>
+    @foreach (var request in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => request.RequestedDate)
+            </td>
+            <td>
+                <a href="~/Clerk/RequestOfEachDept/@request.ConsolidatedRequisitionId" class="btn btn-primary">
+                    @Html.DisplayFor(modelItem => request.Department.DeptName)
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+<a href="~/Clerk/RetrievalForm/" class="btn btn-success"> Generate Retrieval Form</a>

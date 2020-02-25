@@ -1,0 +1,62 @@
+﻿@model AD_Project.ViewModel.SampleViewModel
+
+@using AD_Project.Models.Store;
+
+@{
+    ViewBag.Title = "AdjVoucher";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+
+}
+
+<h2>Adjustment Voucher</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table  class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">ItemCode</th>
+                        <th width=20% class="text-center">QtyAdjusted</th>
+                        <th width=20% class="text-center">Reason</th>
+                        <th width=20% class="text-center">Voucher Amount</th>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    
+                        @foreach (var j in Model.Adjusteditem)
+                        {
+                            <tr>
+                            <td colspan="1" class="col-md-1 text-center .w-auto">@j.ItemId</td>
+
+                            <td colspan="1" class="col-md-1 text-center .w-auto">@j.AdjustedQty </td>
+
+                            <td colspan="1" class="col-md-1 text-center .w-auto">@j.AdjustmentReason</td>
+
+                            @foreach (var k in Model.SuppliersPrice)
+                            {
+                                if (j.ItemId == k.Itemid)
+                                {
+                                    <td colspan="1" class="col-md-1 text-center .w-auto">@(j.AdjustedQty * k.ItemPrice) </td>
+                                    <td class="text-center">
+                                        <a href="~/StoreManager/Approve/@j.AdjustedItemId" class="btn btn-success"> Approve </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="~/StoreManager/Reject/@j.AdjustedItemId" class="btn btn-danger"> Reject</a>
+                                    </td>
+
+                                }
+                            }
+                        
+                    </tr>
+                        }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AD_Project.Models.Departments.Dept_Staff>
+@{
+    ViewBag.Title = "AssignRep";
+    Layout = "~/Views/Shared/_HeadLayout.cshtml";
+}
+
+<h2>Department Representative Management</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var d in Model)
+        {
+
+            <tr>
+                <td>@d.Username</td>
+
+                <td>
+                    <a href="~/Head/ChangeRepList" class="btn btn-default"> Change Rep</a>
+                    <a href="~/Head/CancelRep/@d.UserId" class="btn btn-default">Cancel</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

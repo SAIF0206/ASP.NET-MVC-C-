@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AD_Project.Models.Departments.Dept_Staff>
+@{
+    ViewBag.Title = "ChangeRepList";
+    Layout = "~/Views/Shared/_HeadLayout.cshtml";
+}
+
+<h2>ChangeRep</h2>
+
+@using (Html.BeginForm("ChangeRepList", "Head", FormMethod.Post))
+{
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>
+                        @d.Username
+                    </td>
+
+                    <td>
+                        <a href="~/Head/AssignDetail/@d.UserId" class="btn btn-default">Assign</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="~/Head/AssignRep/" class="btn btn-default"> Back</a>
+}

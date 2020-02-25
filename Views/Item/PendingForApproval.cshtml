@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AD_Project.Models.Departments.EmployeeRequestForm>
+@{
+    ViewBag.Title = "PendingForApproval";
+    Layout = "~/Views/Shared/_RepLayout.cshtml";
+}
+
+<h2>Pending For Approval</h2>
+
+<table class="table ">
+       <thead>
+           <tr>
+               <th>SN</th>
+               <th>Requested By</th>
+
+               <th>Remarks</th>
+               <th> Status </th>
+               <th>Options</th>
+           </tr>
+       </thead>
+       <tbody>
+@foreach (var form in Model)
+{
+           <tr>
+               <td>
+                   <a href="~/Item/RequestDetails/@form.EmployeeRequestFormId">
+                       @form.EmployeeRequestFormId
+                   </a>
+               </td>           
+               <td>@form.DeptStaffId</td>
+           
+               <td>@Html.ActionLink("Add Remarks", "Remarks")</td>
+               <td>@form.EmployeeRequestFormstatus</td>
+
+               <td>
+                   <a href="~/Item/Approve/@form.EmployeeRequestFormId"> Approve</a>
+                   <a href="~/Item/Reject/@form.EmployeeRequestFormId"> Reject</a>
+               </td>
+           </tr>
+}
+       </tbody>
+</table>
+
+

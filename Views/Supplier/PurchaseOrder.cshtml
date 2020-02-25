@@ -1,0 +1,51 @@
+﻿@model AD_Project.ViewModel.PurchaseOrderViewModel
+
+@{
+    ViewBag.Title = "PurchaseOrder";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+<h2>PurchaseOrder</h2>
+
+@using (Html.BeginForm("SpecifySupplier", "Supplier", FormMethod.Post))
+{
+    @Html.DropDownListFor(m => m.SelectedsupplierId, new SelectList(Model.Suppliers, "SupplierId ", "SupplierName"), "Select Supplier", new { @class = "btn btn-default dropdown-toggle" });
+    <input type="Submit" value="Submit"class="btn btn-success" />
+}
+<br />
+
+@if (Model.SelectedsupplierId != 0)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Item No</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var d in Model.SuppliersPrice)
+            {
+    
+                      <tr>
+                            <td>@d.Item.ItemNumber</td>
+                            <td>@d.Item.ItemDesc</td>
+                            <td>@d.Item.ReorderQty</td>
+                            <td>@d.ItemPrice</td>
+                            <td>@(d.ItemPrice * d.Item.ReorderQty)</td>
+                        </tr>
+               
+
+                
+            }
+
+
+
+
+        </tbody>
+    </table>
+}

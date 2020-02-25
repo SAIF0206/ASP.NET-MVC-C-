@@ -1,0 +1,102 @@
+﻿@model AD_Project.ViewModel.RetrievalFormViewModel
+@{
+    ViewBag.Title = "Retrieval Form";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+<h2>Retrieval Form </h2>
+@using (Html.BeginForm("UpdateRetrievalList", "Clerk", FormMethod.Post))
+{
+
+    <table class="table">
+        <tr>
+            <td>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            ITEM DESC
+                        </th>
+                        <th>
+                            TOTAL REQUESTED QUANTITY
+                        </th>
+                        <th>
+                            STOCK QUANTITY
+                        </th>
+                        <th style="text-align: center;">
+                            DEPARTMENT REQUISITIONS
+                        </th>
+
+                    </tr>
+                    @foreach (var r in Model.storeRetrievalLists)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => r.ItemId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => r.TotalNeededQty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => r.StockQty)
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <tr>
+                                        <th>
+                                            ITEM NAME
+                                        </th>
+                                        <th>
+                                            DEPT NAME
+                                        </th>
+                                        <th>
+                                            REQUESTED QTY
+                                        </th>
+                                        <th>
+                                            ACTUAL QTY
+                                        </th>
+                                    </tr>
+
+                                    @for (var h = 0; h < Model.deptRequestedItems.Count(); h++)
+
+                                    {
+                                        if (Model.deptRequestedItems[h].itemId == r.ItemId)
+                                        {
+                                            @Html.HiddenFor(modelItem => Model.deptRequestedItems[h].itemId)
+                                            @Html.HiddenFor(modelItem => Model.deptRequestedItems[h].DeptId)
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => Model.deptRequestedItems[h].itemId)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => Model.deptRequestedItems[h].DeptId)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => Model.deptRequestedItems[h].DeptRequestedQtyForEachItem)
+                                                </td>
+                                                <td>
+                                                    @Html.TextBoxFor(modelItem => Model.deptRequestedItems[h].ActualDeliveredQtyForEachItem, new { htmlAttributes = new { @class = "form-control" } })
+                                                </td>
+                                            </tr>
+
+                                        }
+
+                                    }
+
+                                </table>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </td>
+
+
+        </tr>
+
+    </table>
+    <button type="submit" id="btnViewModel" value="submit" class="btn btn-success">Submit</button>
+}<br>
+ <a href="~/Clerk/DisburmentList/" class="btn btn-primary"> Generate Disbursement List</a>

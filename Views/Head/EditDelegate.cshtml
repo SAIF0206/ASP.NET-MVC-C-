@@ -1,0 +1,36 @@
+﻿@using AD_Project.Models.Departments
+
+@{
+    ViewBag.Title = "EditDelegate";
+    Layout = "~/Views/Shared/_HeadLayout.cshtml";
+}
+
+<h2>EditDelegate</h2>
+@using (Html.BeginForm("EditDelegate", "Head", FormMethod.Post))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>
+                        @d.Username
+                    </td>
+
+                    <td>
+                         <a href="~/Head/DelegateDetail/@d.UserId" class="btn btn-primary">Cancel</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="~/Head/AssignDelegate/" class="btn btn-primary"> Back to List</a>
+}

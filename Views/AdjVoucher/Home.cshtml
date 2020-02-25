@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AD_Project.Models.Store.AdjustedItem>
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+<h2>Voucher</h2>
+<a href="~/AdjVoucher/Create/" class="btn btn-primary"> Create New</a>
+<br/>
+<br/>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.ItemNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdjustedQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdjustmentReason)
+
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.ItemNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdjustedQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdjustmentReason)
+            </td>
+            <td >
+                @Html.ActionLink("Edit", "Edit", new { id = item.AdjustedItemId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AdjustedItemId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

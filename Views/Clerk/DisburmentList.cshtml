@@ -1,0 +1,49 @@
+﻿@model AD_Project.ViewModel.DisbursementViewModel
+@{
+    ViewBag.Title = "DisburmentList";
+
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+
+<h2>DisbursementList</h2>
+@using (Html.BeginForm("DisplayDisburmentList", "Clerk", FormMethod.Post))
+{
+
+    @Html.DropDownListFor(m => m.SelectedDepId, new SelectList(Model.Departments, "DeptId", "DeptName"), "Select Department", new { @class = "btn btn-default dropdown-toggle" })
+
+    <input type="submit" value="Submit" class="btn btn-success" />
+
+}
+
+<br />
+<br />
+
+@if (Model.DisbursementList.DisburseItems.Count != 0)
+{
+
+    <table class="table table-bordered table-hover" id="Disbursement">
+        <thead>
+            <tr>
+                <th>Statioanry Description</th>
+                <th>Quantity</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.DisbursementList.DisburseItems)
+            {
+                <tr>
+                    <td>@item.Item.ItemDesc</td>
+                    <td>@item.DisburseQty</td>
+                    <td>@Model.DisbursementList.Status</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+   
+}
+

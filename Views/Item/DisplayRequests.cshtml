@@ -1,0 +1,54 @@
+﻿
+@model IEnumerable<AD_Project.Models.Departments.EmployeeRequestForm>
+@{
+    ViewBag.Title = "displayRequests";
+    Layout = "~/Views/Shared/_RepLayout.cshtml";
+}
+
+<h2>displayRequests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeRequestFormId)
+        </th>
+        <th>
+            DEPARTMENT NAME
+        </th>
+        <th>
+            EMPLOYEE NAME
+        </th>
+        <th>
+            EMPLOYEE ID
+        </th>
+        <th> STATUS </th>
+    </tr>
+    @foreach (var request in Model)
+    {
+        <tr>
+            <td>
+                <a href="~/Item/DisplayRequestedItems/@request.EmployeeRequestFormId">
+                    @Html.DisplayFor(modelItem => request.EmployeeRequestFormId)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => request.DeptStaff.DeptId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => request.DeptStaff.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => request.DeptStaff.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => request.EmployeeRequestFormstatus)
+            </td>
+
+        </tr>
+    }
+
+</table>
+@using (Html.BeginForm("ConsolidateRequests","Item", FormMethod.Post))
+{
+<input type="submit" name="submit" class="submit btn btn-primary" value="Consolidate" />
+}

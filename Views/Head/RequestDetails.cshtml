@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_HeadLayout.cshtml";
+}
+
+<h2>Details</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Unit Of Measure</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RequestItems)
+        {
+            <tr>
+                <td>
+                    @item.Item.ItemDesc
+                </td>
+                <td>
+                    @item.Item.UnitOfMeasure
+                </td>
+                <td>
+                    @item.RequestedQty
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br>
+<a href="~/Head/PendingForApproval/" class="btn btn-primary"> Back to List</a>
+

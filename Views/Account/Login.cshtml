@@ -1,0 +1,73 @@
+﻿@using AD_Project.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" />*@
+    <link href="~/Content/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/style-responsive.css" rel="stylesheet" />
+
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+    <div id="login-page">
+        <div class="container">
+
+            <section id="loginForm" class="form-login">
+                <h2 class="form-login-heading"></h2>
+
+                <div class="login-wrap">
+                    <h2>LOGIC UNIVERSITY </h2>
+                    <br />
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div>
+                            @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+                            <div>
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <br>
+                        <div>
+                            <div>
+                                <input type="submit" value="Log in" class="btn btn-success btn-block" />
+                            </div>
+                        </div>
+                        <hr>
+                    }
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script src="~/Content/assets/js/jquery.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+</body>
+
+
+</html>

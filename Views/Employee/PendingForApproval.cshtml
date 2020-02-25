@@ -1,0 +1,46 @@
+﻿@model IEnumerable<AD_Project.Models.Departments.EmployeeRequestForm>
+@{
+    ViewBag.Title = "PendingForApproval";
+    Layout = "~/Views/Shared/_EmpLayout.cshtml";
+}
+
+<h2>Pending For Approval</h2>
+
+<table class="table">
+       <thead>
+           <tr>
+               <th>SN</th>
+               <th>Requested By</th>
+               <th> Details </th>
+               <th class="text-center">Options</th>
+           </tr>
+       </thead>
+       <tbody>
+@foreach (var form in Model.Select((x,i) => new { Data = x, Index = i }))
+{
+           <tr>
+               <td>
+                   @(form.Index+1)
+               </td>
+               <td>
+                   @form.Data.DeptStaff.Username.Remove(0,4)
+               </td>
+               <td>
+                   <a href="~/Employee/RequestDetails/@form.Data.EmployeeRequestFormId">
+                      <button class="btn btn-default"> Detail </button>
+                   </a>
+               </td>
+              
+
+             
+
+               <td class="text-center" colspan="2"> 
+                   <a href="~/Employee/Approve/@form.Data.EmployeeRequestFormId" class="btn btn-default"> Approve</a>
+                   <a href="~/Employee/Reject/@form.Data.EmployeeRequestFormId" class="btn btn-default"> Reject</a>
+               </td>
+           </tr>
+}
+       </tbody>
+</table>
+
+

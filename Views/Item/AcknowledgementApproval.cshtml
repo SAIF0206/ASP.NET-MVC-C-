@@ -1,0 +1,129 @@
+﻿@model AD_Project.ViewModel.AcknowledgeViewModel
+@{
+    ViewBag.Title = "AcknowledgementApproval";
+    Layout = "~/Views/Shared/_RepLayout.cshtml";
+}
+
+<h2>Delivery Acknowledgement Data</h2>
+
+<table class="table">
+    <tr>
+        <td>
+            CollectionPoint:
+        </td>
+        @foreach (var f in Model.consolidatedRequisition)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => f.CollectionPoint.CollectionPlace)
+            </td>
+        }
+
+    </tr>
+    <tr>
+        <td>
+            Department:
+        </td>
+        @foreach (var f in Model.consolidatedRequisition)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => f.Department.DeptName)
+            </td>
+        }
+
+    </tr>
+</table>
+
+<table class="table">
+
+    <tr>
+        <td>
+            <table class="table">
+                <tr>
+                    <th>
+                        Item Desc
+                    </th>
+                    <th>
+                        Unit Of Measure
+                    </th>
+                    <th>
+                        Requested Quantity
+                    </th>
+                    <th>
+                        Distributed Quantity
+                    </th>
+
+                </tr>
+
+                @foreach (var d in Model.disbursementList)
+                {
+                    foreach (var g in d.DisburseItems)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => g.ItemId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => g.Item.UnitOfMeasure)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => g.DisburseQty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => g.DisburseQty)
+
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+@using (Html.BeginForm("ValidOtp", "Item"))
+{
+
+    <script type="text/javascript">
+        function ConfirmationDialog() {
+            alert("OTP sent successful!");
+            return true;
+        }
+
+         var SendEmail = function () {         
+        $.ajax({
+            type: "Post",
+            url: "/Item/SendMailToClerk",
+            success: function (data) {
+                alert("Acknowledgement Approved! and Email sent to Clerk");
+            }
+        })
+    }<
+    </script>
+    <br />
+    <div>
+        <a href="~/Item/SendOtp/" class="btn btn-default" onclick = "return ConfirmationDialog()">Get OTP</a>
+      
+        <input type="text" maxlength="6" placeholder="6 Digits Only" name="inputOtp" id="inputOtp" class="btn btn-default" required />
+        <button type="submit" value="Submit" onclick="SendEmail()" class="btn btn-success">Submit</button>
+
+
+    </div>
+
+}
+@*<script>
+    var SendEmail = function () {
+         alert("Acknowledgement Approved!");
+        $.ajax({
+            type: "Post",
+            url: "/Item/SendMailToUser",
+            success: function (data) {
+                alert("Success");
+            }
+        })
+    }</script>*@
+
+
+
+

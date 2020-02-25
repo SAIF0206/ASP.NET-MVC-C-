@@ -1,0 +1,54 @@
+﻿@model AD_Project.ViewModel.ConsolidatedReqForm
+@{
+    ViewBag.Title = "ConsolidateRequests";
+    Layout = "~/Views/Shared/_RepLayout.cshtml";
+}
+<h2> consolidated List </h2>
+@using (Html.BeginForm("UpdateCollectionPoint", "Item", FormMethod.Post))
+{
+    <div class="dropdown">
+        @Html.LabelFor(model => model.ConsolidatedReqFormodel.CollectonPoint)
+        @Html.DropDownList("CollectionPoint", new SelectList(Model.Collectionpoints, "CollectionPointId", "CollectionPlace"), "Select CollectionPoint", new { @class = "btn btn-default dropdown-toggle" })
+    </div>
+
+    <table class="table">
+        <br/>
+        <tr>
+            <th>
+                Request Item ID
+            </th>
+            <th>
+                Requested Quantity
+            </th>
+        </tr>
+        @foreach (var request in Model.dictionary)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => request.Key)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => request.Value)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    @Html.HiddenFor(m => m.ConsolidatedReqFormodel.ConsolidatedListId)
+
+    <button type="submit" id="btnViewModel" value="Submit and Share" onclick="SendEmail()"class="btn btn-success">Submit and Share</button>
+    
+
+    <script>
+var SendEmail = function(){
+
+        $.ajax({
+            type: "Post",
+            url: "/Item/SendMailToUser",
+            success: function (data) {
+                alert("Email has been sent to Clerk");
+            }
+        })
+    }</script>
+}

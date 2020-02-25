@@ -1,0 +1,24 @@
+﻿
+@model IEnumerable<AD_Project.Models.Store.DisbursementList>
+@{
+    ViewBag.Title = "ValidOtp";
+    Layout = "~/Views/Shared/_RepLayout.cshtml";
+}
+
+<h2>Valid Otp</h2>
+
+
+<div>
+    <button>
+        @Html.ActionLink("Approve", "ApproveKmt", "Item", null, new { onclick = "return ConfirmationDialog()" })
+    </button>
+    <button>
+        @Html.ActionLink("Reject", "RejectKmt", "Item", null, new { onclick = "return ConfirmationDialog()" })
+    </button>
+</div>
+<script type="text/javascript">
+    function ConfirmationDialog() {         
+            alert("Successful!");
+            return true;
+        }
+</script>

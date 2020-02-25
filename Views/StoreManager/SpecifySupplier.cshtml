@@ -1,0 +1,47 @@
+﻿@model AD_Project.ViewModel.SupplierViewModel
+@{
+    ViewBag.Title = "DisburmentList";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<h2>Tender Details</h2>
+
+@using (Html.BeginForm("TenderForm", "StoreManager", FormMethod.Post))
+{
+    @Html.DropDownListFor(m => m.SelectedsupplierId, new SelectList(Model.Suppliers, "SupplierId ", "SupplierName"), "Select suplier", new { @class = "btn btn-default dropdown-toggle" });
+    <input type="Submit" value="Submit" class = "btn btn-success"/>
+}
+<br />
+@if (Model.SelectedsupplierId != 0)
+{
+    <table border="1" >
+        <thead>
+            <tr>
+                <th class="text-center">Item description</th>
+                <th class="text-center">Tender Price</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var i in Model.Items)
+            {
+
+                <tr>
+                    <td height="100" class="col-md-1 text-center .w-auto">@i.ItemDesc</td>
+                    @foreach (var p in Model.Suppliers_Price)
+                    {
+                        if (i.Id == p.Itemid)
+                        {
+                            <td height="100" class="col-md-1 text-center .w-auto">@p.ItemPrice/@i.UnitOfMeasure</td>
+
+                        }
+
+                    }
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

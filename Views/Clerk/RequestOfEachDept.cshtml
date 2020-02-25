@@ -1,0 +1,36 @@
+﻿@model AD_Project.Models.Departments.ConsolidatedRequisition
+@{
+    ViewBag.Title = "Request Of Each Dept";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+
+<h2>Request Of Each Dept</h2>
+<table class="table">
+    <tr>
+        <th>
+            ITEM DESC
+        </th>
+        <th>
+            ITEM QUANTITY
+        </th>
+
+    </tr>
+    @foreach (var i in Model.CollectionOfReq)
+    {
+        <tr>
+            <td>
+                @i.ItemId
+            </td>
+            <td>
+                @i.TotalRequestedQty
+            </td>
+        </tr>
+    }
+</table>
+<a href="~/Clerk/DisplayRequestedItems/" class="btn btn-primary"> Back to List</a>
+
+
+
+
+

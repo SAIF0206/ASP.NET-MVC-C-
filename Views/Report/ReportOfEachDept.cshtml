@@ -1,0 +1,64 @@
+﻿@model AD_Project.ViewModel.ReportViewModel
+@{
+    ViewBag.Title = "ReportOfEachDept";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+        <!DOCTYPE HTML>
+        <head>
+            <script>window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title: {
+		text: "Stock details in Inventory"
+	},
+	subtitles: [{
+		text: "This  Month"
+	}],
+	axisY: {
+		title: "Quantity",
+		gridThickness: 0
+	},
+	axisX: {
+		title: "Item",
+		gridThickness: 0
+	},
+
+	data: [{
+		type: "column",
+
+		showInLegend: "true",
+		legendText: "{x} -{y}",
+
+		dataPoints: @Html.Raw(ViewBag.DataPoints1)
+	}]
+});
+chart.render();
+
+		}</script>
+        </head>
+        <body>
+            <br />
+            <br />
+
+            <div id="chartContainer" style="height: 370px; width: 100%;position:relative"></div>
+            <script>
+                setTimeout(function () {
+                    var element = document.createElement("div");
+                    element.style.position = "absolute";
+                    element.style.width = "70px";
+                    element.style.height = "20px";
+                    element.style.bottom = "0px";
+                    element.style.backgroundColor = "white";
+                    console.log(element);
+                    document.getElementById("chartContainer").appendChild(element);
+                    var rightElement = element.cloneNode();
+                    rightElement.style.right = "0px";
+                    document.getElementById("chartContainer").appendChild(rightElement);
+                }, 10);
+            </script>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <div>
+                @Html.ActionLink("Back", "Report")
+            </div>
+        </body>

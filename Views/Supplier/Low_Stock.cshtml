@@ -1,0 +1,39 @@
+﻿@model  IEnumerable<AD_Project.Models.Store.Item>
+@{
+    ViewBag.Title = "Low_Stock";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+<h2>Low Stock Details</h2>
+<table class="table ">
+    <thead>
+        <tr>
+            <th>Item No</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Reorder Level</th>
+            <th>Reorder Quantity</th>
+            <th>Unit Of Measure</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.ItemNumber</td>
+                <td>@d.ItemDesc</td>
+                <td>
+                    @foreach (var i in d.Stockdetails)
+                    {
+                        @i.InventoryStockQty
+                    }
+                </td>
+                <td>@d.ReorderLevel </td>
+                <td>@d.ReorderQty</td>
+                <td>@d.UnitOfMeasure</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="~/Supplier/PurchaseOrder/" class="btn btn-primary"> Generate Purchase Order</a>
+
